@@ -1,0 +1,36 @@
+package org.vchavan.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class SiteController
+ */
+@WebServlet("/site")
+public class SiteController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String page=request.getParameter("page");
+		page=page.toLowerCase();
+		
+		switch(page)
+		{
+		case "home":
+			request.setAttribute("title", "HomePage");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+			break;
+		case "aboutus":
+			request.getRequestDispatcher("about.jsp").forward(request, response);
+			break;
+		default:
+			request.setAttribute("title", "Error Page");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
+	}
+
+}
